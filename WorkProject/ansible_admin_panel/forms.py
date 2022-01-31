@@ -11,7 +11,7 @@ class HostForm(forms.Form):
 
     def save(self):
         new_host = Host.objects.create(
-            name = self.name,
-            org = self.org
+            name = self.cleaned_data['name'],
+            org = self.cleaned_data['org']
         )
         return new_host
