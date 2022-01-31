@@ -4,11 +4,10 @@
         <title>Home page</title>
     </head>
     <body>
-        <h6>Home page</h6>
-        <p>Parag</p>
-        <a href="https://vk.com/im">VK</a>
-        <form>
-            <input type="button">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
         </form>
     </body>
 </html>
