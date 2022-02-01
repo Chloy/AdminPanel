@@ -1,3 +1,5 @@
+from importlib.metadata import requires
+from urllib import request
 from django.db import models
 
 class ORG(models.Model):
@@ -120,6 +122,27 @@ class STAGE(models.Model):
     def __str__(self):
         return self.name
 
-class Host(models.Model):
-    name = models.CharField(unique=True, max_length=250)
-    org = models.ForeignKey(ORG, on_delete=models.DO_NOTHING)
+# class Host(models.Model):
+#     name = models.CharField(unique=True, max_length=250)
+#     org = models.ForeignKey(ORG, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     location = models.ForeignKey(LOCATION, on_delete=models.DO_NOTHING, default=LOCATION.objects.get(name='DEF'))
+#     hv = models.ForeignKey(HV, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     clas = models.ForeignKey(CLASS, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     assignip = models.ForeignKey(ASSIGNIP, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     family = models.ForeignKey(FAMILY, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     role = models.ForeignKey(ROLE, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     features = models.ForeignKey(FEATURES, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     kna = models.ForeignKey(KNA, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     kes = models.ForeignKey(KES, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     be = models.ForeignKey(BE, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     con = models.ForeignKey(CON, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     availability = models.ForeignKey(AVAILABILITY, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     elk = models.ForeignKey(ELK, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     dinet = models.ForeignKey(DINET, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     wu = models.ForeignKey(WU, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     ssh = models.ForeignKey(SSH, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+#     local_os = models.ForeignKey(LOCAL_OS, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+# #     stage = models.ForeignKey(STAGE, on_delete=models.DO_NOTHING, default=ORG.objects.get(name='DEF'))
+
+#     def __str__(self):
+#         return self.name
