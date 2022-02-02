@@ -26,6 +26,24 @@ class HostForm(forms.Form):
     def save(self):
         new_host = Host.objects.create(
             name = self.cleaned_data['name'],
-            org = self.cleaned_data['org']
+            org = self.cleaned_data['org'],
+            location = self.cleaned_data['location'],
+            hv = self.cleaned_data['hv'],
+            clas = self.cleaned_data['clas'],
+            assignip = self.cleaned_data['assignip'],
+            family = self.cleaned_data['family'],
+            role = self.cleaned_data['role'],
+            features = self.cleaned_data['features'],
+            kna = self.cleaned_data['kna'],
+            kes = self.cleaned_data['kes'],
+            be = self.cleaned_data['be'],
+            con = self.cleaned_data['con'],
+            availability = self.cleaned_data['availability'],
+            elk = self.cleaned_data['elk'],
+            dinet = self.cleaned_data['dinet'],
+            wu = self.cleaned_data['wu'],
+            ssh = self.cleaned_data['ssh'],
+            local_os = self.cleaned_data['local_os'],
+            stage = self.cleaned_data['stage']
         )
         return new_host

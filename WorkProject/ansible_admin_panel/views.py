@@ -4,7 +4,7 @@ from .forms import HostForm
 
 
 def home(request):
-    return render(request, 'ansible_admin_panel/home.html')
+    return render(request, 'ansible_admin_panel/base.html')
 
 
 def add_host(request):

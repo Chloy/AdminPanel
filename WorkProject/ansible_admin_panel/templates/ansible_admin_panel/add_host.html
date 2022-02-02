@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Add host</title>
-    </head>
-    <body>
-        <form action="" method="post">
-            {% csrf_token %}
-            {% for field in form %}
-                {{ field.label }}: {{ field }}<br>
-            {% endfor %}
-            <input type="submit" value="Submit">
-        </form>
-    </body>
-</html>
+{% extends 'ansible_admin_panel/base.html' %}
+{% block head %}
+    <title>Add host</title>
+{% endblock %}
+{% block body %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.label }}: {{ field }}<br>
+        {% endfor %}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
