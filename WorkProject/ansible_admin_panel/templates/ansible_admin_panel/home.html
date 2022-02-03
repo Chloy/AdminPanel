@@ -1,4 +1,4 @@
-{% extends 'ansible_admin_panel/base.html' %}
+{% extends 'base.html' %}
 
 {% block head %}
     <title>Home page</title>
@@ -6,4 +6,7 @@
 
 {% block body %}
     <h1>Home page</h1>
+    {% for org in orgs %}
+        {{ org }}
+    {% endfor %}
 {% endblock %}
