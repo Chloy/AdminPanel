@@ -5,8 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Home page</h1>
-    {% for org in orgs %}
-        {{ org }}
-    {% endfor %}
+    <h1>Home page</h1><br>
+    <button type="button" class="btn btn-primary">
+        <a class="nav-link active" aria-current="page" href="{% url 'ansible_admin_panel_add_host' %}">Add host</a>
+    </button>
+    <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+          The current link item
+        </a>
+        {% for org in orgs %}
+        <a href="#" class="list-group-item list-group-item-action">{{ org }}</a>
+        {% endfor %}
+      </div>
 {% endblock %}
