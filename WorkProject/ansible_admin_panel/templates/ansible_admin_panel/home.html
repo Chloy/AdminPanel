@@ -10,11 +10,9 @@
         <a class="nav-link active" aria-current="page" href="{% url 'ansible_admin_panel_add_host' %}">Add host</a>
     </button>
     <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-          The current link item
-        </a>
-        {% for org in orgs %}
-        <a href="#" class="list-group-item list-group-item-action">{{ org }}</a>
-        {% endfor %}
-      </div>
+      <h2>Tables</h2>
+      {% for model in models %}
+        <a href="#" class="list-group-item list-group-item-action">{{ model|upper }}</a>
+      {% endfor %}
+    </div>
 {% endblock %}

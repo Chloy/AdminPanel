@@ -1,13 +1,15 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect
+from django.apps import apps
 from .forms import HostForm
 from .models import *
 
 
 def home(request):
-    #orgs = ORG.objects.all()
-
-    return render(request, 'ansible_admin_panel/home.html')
+    
+    models = apps.all_models['ansible_admin_panel'].keys()
+    #print(apps.all_models['ansible_admin_panel']['org'].objects.all())
+    return render(request, 'ansible_admin_panel/home.html', {'models': models})
 
 
 def add_host(request):

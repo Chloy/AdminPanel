@@ -10,11 +10,11 @@
         <table>
             {% for field in form %}
                 <tr>
-                    <td>{{ field.label }}</td>
+                    <td style='text-align: center;' >{{ field.label }}</td>
                     <td>{{ field }}</td>
                 </tr>
             {% endfor %}
         </table>
-        <input type="submit" value="Submit" style="margin: 25px;">
+        <input type="submit" value="Create" style="margin: 25px;">
     </form>
 {% endblock %}
