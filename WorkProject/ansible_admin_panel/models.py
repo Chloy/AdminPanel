@@ -120,16 +120,26 @@ class STAGE(models.Model):
     def __str__(self):
         return self.name
 
+class VarType(models.Model):
+    name = models.CharField(unique=True, max_length=250)
+
+    def __str__(self):
+        return self.name
+
+class Var(models.Model):
+    name = models.ForeignKey(VarType, on_delete=models.CASCADE)
+    value = models.CharField(max_length=250)
+
 class Host(models.Model):
     name = models.CharField(unique=True, max_length=250)
     org = models.ForeignKey(ORG, on_delete=models.DO_NOTHING)
     location = models.ForeignKey(LOCATION, on_delete=models.DO_NOTHING)
     hv = models.ForeignKey(HV, on_delete=models.DO_NOTHING)
-    clas = models.ForeignKey(CLASS, on_delete=models.DO_NOTHING)
+    _class = models.ForeignKey(CLASS, on_delete=models.DO_NOTHING)
     assignip = models.ForeignKey(ASSIGNIP, on_delete=models.DO_NOTHING)
     family = models.ForeignKey(FAMILY, on_delete=models.DO_NOTHING)
-    role = models.ForeignKey(ROLE, on_delete=models.DO_NOTHING)
-    features = models.ForeignKey(FEATURES, on_delete=models.DO_NOTHING)
+    role = models.ManyToManyField(ROLE)
+    features = models.ManyToManyField(FEATURES)
     kna = models.ForeignKey(KNA, on_delete=models.DO_NOTHING)
     kes = models.ForeignKey(KES, on_delete=models.DO_NOTHING)
     be = models.ForeignKey(BE, on_delete=models.DO_NOTHING)
@@ -141,6 +151,7 @@ class Host(models.Model):
     ssh = models.ForeignKey(SSH, on_delete=models.DO_NOTHING)
     local_os = models.ForeignKey(LOCAL_OS, on_delete=models.DO_NOTHING)
     stage = models.ForeignKey(STAGE, on_delete=models.DO_NOTHING)
+    vars = models.ManyToManyField(Var)
 
     def __str__(self):
         return self.name

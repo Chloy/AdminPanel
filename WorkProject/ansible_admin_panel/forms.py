@@ -6,11 +6,11 @@ class HostForm(forms.Form):
     org = forms.ModelChoiceField(queryset=ORG.objects.all())
     location = forms.ModelChoiceField(queryset=LOCATION.objects.all())
     hv = forms.ModelChoiceField(queryset=HV.objects.all())
-    clas = forms.ModelChoiceField(queryset=CLASS.objects.all(), label='Class')
+    _class = forms.ModelChoiceField(queryset=CLASS.objects.all())
     assignip = forms.ModelChoiceField(queryset=ASSIGNIP.objects.all())
     family = forms.ModelChoiceField(queryset=FAMILY.objects.all())
-    role = forms.ModelChoiceField(queryset=ROLE.objects.all())
-    features = forms.ModelChoiceField(queryset=FEATURES.objects.all())
+    role = forms.ModelMultipleChoiceField(queryset=ROLE.objects.all())
+    features = forms.ModelMultipleChoiceField(queryset=FEATURES.objects.all())
     kna = forms.ModelChoiceField(queryset=KNA.objects.all())
     kes = forms.ModelChoiceField(queryset=KES.objects.all())
     be = forms.ModelChoiceField(queryset=BE.objects.all())
@@ -22,8 +22,10 @@ class HostForm(forms.Form):
     ssh = forms.ModelChoiceField(queryset=SSH.objects.all())
     local_os = forms.ModelChoiceField(queryset=LOCAL_OS.objects.all())
     stage = forms.ModelChoiceField(queryset=STAGE.objects.all())
+    vars = forms.ModelMultipleChoiceField(queryset=Var.objects.all())
 
     def save(self):
+        print(self.cleaned_data)
         new_host = Host.objects.create(
             name = self.cleaned_data['name'],
             org = self.cleaned_data['org'],
@@ -32,8 +34,8 @@ class HostForm(forms.Form):
             clas = self.cleaned_data['clas'],
             assignip = self.cleaned_data['assignip'],
             family = self.cleaned_data['family'],
-            role = self.cleaned_data['role'],
-            features = self.cleaned_data['features'],
+            role = [r for r in self.cleaned_data['role']],
+            features = [f for f in self.cleaned_data['features']],
             kna = self.cleaned_data['kna'],
             kes = self.cleaned_data['kes'],
             be = self.cleaned_data['be'],
@@ -44,6 +46,7 @@ class HostForm(forms.Form):
             wu = self.cleaned_data['wu'],
             ssh = self.cleaned_data['ssh'],
             local_os = self.cleaned_data['local_os'],
-            stage = self.cleaned_data['stage']
+            stage = self.cleaned_data['stage'],
+            vars = [v for v in self.cleaned_data['vars']]
         )
         return new_host
