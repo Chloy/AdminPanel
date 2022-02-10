@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <form action="" method="post">
+    <form action="{% url 'ansible_admin_panel_add_host' %}" method="post">
         {% csrf_token %}
         <table>
             {% for field in form %}

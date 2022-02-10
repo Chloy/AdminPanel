@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponseRedirect
 from django.apps import apps
-from pyparsing import removeQuotes
 from .forms import HostForm
 from .models import *
 
@@ -35,10 +34,13 @@ def table_detail(request, slug):
 def object_detail(request, slug, pk):
     model = apps.all_models['ansible_admin_panel'][slug]
     _object = model.objects.get(id=pk)
-    print('#' * 40)
-    print(_object)
+    print(str(_object) + '#' * 120)
+    form = HostForm(instance=_object)
+    print(str(form) + '#' * 120)
     context = {
-        'object': _object
+        'object': _object,
+        'form': form,
+        'slug': slug
     }
 
     return render(request, 'ansible_admin_panel/object_detail.html', context)
