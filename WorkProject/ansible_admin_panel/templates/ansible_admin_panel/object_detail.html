@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Object {{object.name}}</title>
+{% endblock %}
+
+{% block body %}
+    <h1>Hella</h1>
+    <span>{{object.name}}</span><br>
+    <span>{{object.org.values_list}}</span>
+    <span>{{object.role}}</span>
+
+{% endblock %}

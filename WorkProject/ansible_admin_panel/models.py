@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 class ORG(models.Model):
     name = models.CharField(unique=True, max_length=250)
@@ -152,6 +153,9 @@ class Host(models.Model):
     local_os = models.ForeignKey(LOCAL_OS, on_delete=models.DO_NOTHING)
     stage = models.ForeignKey(STAGE, on_delete=models.DO_NOTHING)
     vars = models.ManyToManyField(Var)
+
+    def get_absolute_url(self):
+        return reverse('ansible_admin_panel_object_detail', kwargs={'slug': 'host', 'pk': self.pk})
 
     def __str__(self):
         return self.name
