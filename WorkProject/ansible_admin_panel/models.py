@@ -1,5 +1,3 @@
-from importlib.metadata import requires
-from urllib import request
 from django.db import models
 
 class ORG(models.Model):
