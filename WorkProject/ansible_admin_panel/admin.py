@@ -1,3 +1,26 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+admin.site.register(Host)
+admin.site.register(ORG)
+admin.site.register(LOCATION)
+admin.site.register(HV)
+admin.site.register(CLASS)
+admin.site.register(ASSIGNIP)
+admin.site.register(FAMILY)
+admin.site.register(ROLE)
+admin.site.register(FEATURE)
+admin.site.register(TV)
+admin.site.register(KNA)
+admin.site.register(KES)
+admin.site.register(BE)
+admin.site.register(CON)
+admin.site.register(AVAILABILITY)
+admin.site.register(ELK)
+admin.site.register(DINET)
+admin.site.register(WU)
+admin.site.register(SSH)
+admin.site.register(LOCAL_OS)
+admin.site.register(STAGE)
+admin.site.register(VarType)
+admin.site.register(Var)

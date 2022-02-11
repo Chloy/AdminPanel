@@ -34,9 +34,10 @@ def table_detail(request, slug):
 def object_detail(request, slug, pk):
     model = apps.all_models['ansible_admin_panel'][slug]
     _object = model.objects.get(id=pk)
-    print(str(_object) + '#' * 120)
+    print(request.path.split('/')[-3])
+    #print(str(_object) + '#' * 120)
     form = HostForm(instance=_object)
-    print(str(form) + '#' * 120)
+    #print(str(form) + '#' * 120)
     context = {
         'object': _object,
         'form': form,

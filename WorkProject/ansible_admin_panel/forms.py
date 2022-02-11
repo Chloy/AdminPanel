@@ -3,27 +3,6 @@ from django import forms
 from .models import *
 
 class HostForm(forms.ModelForm):
-    # name = forms.CharField(max_length=250)
-    # org = forms.ModelChoiceField(queryset=ORG.objects.all(), label='ORG')
-    # location = forms.ModelChoiceField(queryset=LOCATION.objects.all(), label='LOCATION')
-    # hv = forms.ModelChoiceField(queryset=HV.objects.all(), label='HV')
-    # _class = forms.ModelChoiceField(queryset=CLASS.objects.all(), label='CLASS')
-    # assignip = forms.ModelChoiceField(queryset=ASSIGNIP.objects.all(), label='ASSIGNIP')
-    # family = forms.ModelChoiceField(queryset=FAMILY.objects.all(), label='FAMILY')
-    # role = forms.ModelMultipleChoiceField(queryset=ROLE.objects.all(), label='ROLE')
-    # features = forms.ModelMultipleChoiceField(queryset=FEATURES.objects.all(), label='FEATURES')
-    # kna = forms.ModelChoiceField(queryset=KNA.objects.all(), label='KNA')
-    # kes = forms.ModelChoiceField(queryset=KES.objects.all(), label='KES')
-    # be = forms.ModelChoiceField(queryset=BE.objects.all(), label='BE')
-    # con = forms.ModelChoiceField(queryset=CON.objects.all(), label='CON')
-    # availability = forms.ModelChoiceField(queryset=AVAILABILITY.objects.all(), label='AVAILABILITY')
-    # elk = forms.ModelChoiceField(queryset=ELK.objects.all(), label='ELK')
-    # dinet = forms.ModelChoiceField(queryset=DINET.objects.all(), label='DINET')
-    # wu = forms.ModelChoiceField(queryset=WU.objects.all(), label='WU')
-    # ssh = forms.ModelChoiceField(queryset=SSH.objects.all(), label='SSH')
-    # local_os = forms.ModelChoiceField(queryset=LOCAL_OS.objects.all(), label='LOCAL OS')
-    # stage = forms.ModelChoiceField(queryset=STAGE.objects.all(), label='STAGE')
-    #vars = forms.ModelMultipleChoiceField(queryset=Var.objects.all())
 
     class Meta:
         model = Host
@@ -35,7 +14,7 @@ class HostForm(forms.ModelForm):
             '_class',
             'assignip', 
             'family', 
-            'role', 
+            'roles', 
             'features', 
             'kna', 
             'kes', 
@@ -71,6 +50,266 @@ class HostForm(forms.ModelForm):
             local_os = self.cleaned_data['local_os'],
             stage = self.cleaned_data['stage']
         )
-        new_host.role.add(*self.cleaned_data['role'])
+        new_host.roles.add(*self.cleaned_data['roles'])
         new_host.features.add(*self.cleaned_data['features'])
         return new_host
+
+class ORGForm(forms.ModelForm):
+    class Meta:
+        model = ORG
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_org = ORG.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_org
+
+class LOCATIONForm(forms.ModelForm):
+    class Meta:
+        model = LOCATION
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_location = LOCATION.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_location
+
+class HVForm(forms.ModelForm):
+    class Meta:
+        model = HV
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_hv = HV.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_hv
+
+class CLASSForm(forms.ModelForm):
+    class Meta:
+        model = CLASS
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_class= CLASS.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_class
+
+class ASSIGNIPForm(forms.ModelForm):
+    class Meta:
+        model = ASSIGNIP
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_assignip = ASSIGNIP.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_assignip
+
+class FAMILYForm(forms.ModelForm):
+    class Meta:
+        model = FAMILY
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_family = FAMILY.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_family
+
+class ROLEForm(forms.ModelForm):
+    class Meta:
+        model = ROLE
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_role = ROLE.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_role
+
+class FEATUREForm(forms.ModelForm):
+    class Meta:
+        model = FEATURE
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_feature = FEATURE.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_feature
+
+class TVForm(forms.ModelForm):
+    class Meta:
+        model = TV
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_tv = TV.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_tv
+
+class KNAForm(forms.ModelForm):
+    class Meta:
+        model = KNA
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_kna = KNA.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_kna
+
+class KESForm(forms.ModelForm):
+    class Meta:
+        model = KES
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_kes = KES.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_kes
+
+class BEForm(forms.ModelForm):
+    class Meta:
+        model = BE
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_be = BE.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_be
+
+class CONForm(forms.ModelForm):
+    class Meta:
+        model = CON
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_con = CON.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_con
+
+class AVAILABILITYForm(forms.ModelForm):
+    class Meta:
+        model = AVAILABILITY
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_availability = AVAILABILITY.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_availability
+
+class ELKForm(forms.ModelForm):
+    class Meta:
+        model = ELK
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_elk = ELK.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_elk
+
+class DINETForm(forms.ModelForm):
+    class Meta:
+        model = DINET
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_dinet = DINET.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_dinet
+
+class WUForm(forms.ModelForm):
+    class Meta:
+        model = WU
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_wu = WU.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_wu
+
+class SSHForm(forms.ModelForm):
+    class Meta:
+        model = SSH
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_ssh = SSH.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_ssh
+
+class LOCAL_OSForm(forms.ModelForm):
+    class Meta:
+        model = LOCAL_OS
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_local_os = LOCAL_OS.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_local_os
+
+class STAGEForm(forms.ModelForm):
+    class Meta:
+        model = STAGE
+        fields = [
+            'name'
+        ]
+
+    def save(self):
+        new_stage = STAGE.objects.create(
+            name = self.cleaned_data('name')
+        )
+        return new_stage

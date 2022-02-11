@@ -43,7 +43,7 @@ class ROLE(models.Model):
     def __str__(self):
         return self.name
 
-class FEATURES(models.Model):
+class FEATURE(models.Model):
     name = models.CharField(unique=True, max_length=250)
 
     def __str__(self):
@@ -128,8 +128,11 @@ class VarType(models.Model):
         return self.name
 
 class Var(models.Model):
-    name = models.ForeignKey(VarType, on_delete=models.CASCADE)
+    var_type = models.ForeignKey(VarType, on_delete=models.CASCADE)
     value = models.CharField(max_length=250)
+
+    def __str__(self):
+        return "{}={}".format(self.var_type, self.value)
 
 class Host(models.Model):
     name = models.CharField(unique=True, max_length=250)
@@ -139,8 +142,8 @@ class Host(models.Model):
     _class = models.ForeignKey(CLASS, on_delete=models.DO_NOTHING)
     assignip = models.ForeignKey(ASSIGNIP, on_delete=models.DO_NOTHING)
     family = models.ForeignKey(FAMILY, on_delete=models.DO_NOTHING)
-    role = models.ManyToManyField(ROLE)
-    features = models.ManyToManyField(FEATURES)
+    roles = models.ManyToManyField(ROLE)
+    features = models.ManyToManyField(FEATURE)
     kna = models.ForeignKey(KNA, on_delete=models.DO_NOTHING)
     kes = models.ForeignKey(KES, on_delete=models.DO_NOTHING)
     be = models.ForeignKey(BE, on_delete=models.DO_NOTHING)

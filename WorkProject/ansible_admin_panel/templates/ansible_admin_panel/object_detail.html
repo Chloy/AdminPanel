@@ -10,7 +10,7 @@
         <table>
             {% for field in form %}
                 <tr>
-                    <td style='text-align: center;'>{{ field.label }}</td>
+                    <td style='text-align: center;'>{{ field.label|upper }}</td>
                     <td>{{ field }}</td>
                 </tr>
             {% endfor %}
