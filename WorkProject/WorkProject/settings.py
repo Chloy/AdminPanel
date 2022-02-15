@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'WorkProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': creds.DATABASE['NAME'],
+        'USER': creds.DATABASE['USER'],
+        'PASSWORD': creds.DATABASE['PASSWORD'],
+        'HOST': creds.DATABASE['HOST'],
+        'PORT': creds.DATABASE['PORT'],
     }
 }
 

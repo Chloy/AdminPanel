@@ -142,8 +142,8 @@ class Host(models.Model):
     _class = models.ForeignKey(CLASS, on_delete=models.DO_NOTHING)
     assignip = models.ForeignKey(ASSIGNIP, on_delete=models.DO_NOTHING)
     family = models.ForeignKey(FAMILY, on_delete=models.DO_NOTHING)
-    roles = models.ManyToManyField(ROLE)
-    features = models.ManyToManyField(FEATURE)
+    roles = models.ManyToManyField(ROLE, blank=True)
+    features = models.ManyToManyField(FEATURE, blank=True)
     kna = models.ForeignKey(KNA, on_delete=models.DO_NOTHING)
     kes = models.ForeignKey(KES, on_delete=models.DO_NOTHING)
     be = models.ForeignKey(BE, on_delete=models.DO_NOTHING)
@@ -155,7 +155,7 @@ class Host(models.Model):
     ssh = models.ForeignKey(SSH, on_delete=models.DO_NOTHING)
     local_os = models.ForeignKey(LOCAL_OS, on_delete=models.DO_NOTHING)
     stage = models.ForeignKey(STAGE, on_delete=models.DO_NOTHING)
-    vars = models.ManyToManyField(Var)
+    vars = models.ManyToManyField(Var, blank=True)
 
     def get_absolute_url(self):
         return reverse('ansible_admin_panel_object_detail', kwargs={'slug': 'host', 'pk': self.pk})
