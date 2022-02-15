@@ -140,7 +140,7 @@ class Host(models.Model):
     location = models.ForeignKey(LOCATION, on_delete=models.DO_NOTHING)
     hv = models.ForeignKey(HV, on_delete=models.DO_NOTHING)
     _class = models.ForeignKey(CLASS, on_delete=models.DO_NOTHING)
-    assignip = models.ForeignKey(ASSIGNIP, on_delete=models.DO_NOTHING)
+    assignip = models.ForeignKey(ASSIGNIP, on_delete=models.DO_NOTHING, limit_choices_to={'name__startswith': 'a-'})
     family = models.ForeignKey(FAMILY, on_delete=models.DO_NOTHING)
     roles = models.ManyToManyField(ROLE, blank=True)
     features = models.ManyToManyField(FEATURE, blank=True)
