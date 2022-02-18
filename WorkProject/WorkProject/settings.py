@@ -29,10 +29,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+JSON_EDITOR_JS = 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.7.2/jsoneditor.js'
+JSON_EDITOR_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.7.2/jsoneditor.css'
+JSON_EDITOR_INIT_JS = "jsoneditor-init.js"
+JSON_EDITOR_ACE_OPTIONS_JS = "my_ace_options.js"
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jsoneditor',
     'ansible_admin_panel.apps.AnsibleAdminPanelConfig',
     'django.contrib.admin',
     'django.contrib.auth',

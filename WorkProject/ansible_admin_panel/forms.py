@@ -1,4 +1,4 @@
-from django.forms.widgets import CheckboxSelectMultiple
+# from django.forms.widgets import CheckboxSelectMultiple
 from django import forms
 from .models import *
 
@@ -31,11 +31,11 @@ class HostForm(forms.ModelForm):
             'vars'
             ]
 
-    def __init__(self, *args, **kwargs):
-        super(HostForm, self).__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     super(HostForm, self).__init__(*args, **kwargs)
     
-        self.fields["vars"].widget = CheckboxSelectMultiple()
-        self.fields["vars"].queryset = Var.objects.all()
+    #     self.fields.widget = CheckboxSelectMultiple()
+    #     self.fields.queryset = Var.objects.all()
 
     def save(self):
         new_host = Host.objects.create(

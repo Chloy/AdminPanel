@@ -1,11 +1,36 @@
+from jsoneditor.forms import JSONEditor
 from django.contrib.admin import widgets
 from django.contrib import admin
+from django.db import models
 from .models import *
 
 class AnsibleAdminPanel(admin.AdminSite):
     site_header = 'Ansible Admin Panel'
 
 ansible_admin_panel = AnsibleAdminPanel(name='AnsibleAdmin')
+
+
+class VarAdmin(admin.ModelAdmin):
+    fields = [
+        'var_type',
+        'value',
+        'json_value'
+    ]
+    formfield_overrides = {
+        models.JSONField:{ 'widget': JSONEditor },
+    }
+
+    # def formfield_for_dbfield(self, db_field, request, **kwargs):
+    #     field = super().formfield_for_dbfield(db_field, request, **kwargs)
+    #     if isinstance(field, forms.fields.JSONField):
+    #         field.widget = JSONEditor({
+    #             "type": "array",
+    #             "items": {
+    #                 "type": "string"
+    #             }
+    #         })
+    #     return field
+
 
 class HostAdmin(admin.ModelAdmin):
     fields = [
@@ -38,7 +63,6 @@ class HostAdmin(admin.ModelAdmin):
             db_field.verbose_name,
             db_field.name in self.filter_vertical
         )
-
         return super(admin.ModelAdmin, self).formfield_for_manytomany(
             db_field, request=request, **kwargs)
 
@@ -65,4 +89,4 @@ ansible_admin_panel.register(SSH)
 ansible_admin_panel.register(LOCAL_OS)
 ansible_admin_panel.register(STAGE)
 ansible_admin_panel.register(VarType)
-ansible_admin_panel.register(Var)
+ansible_admin_panel.register(Var, VarAdmin)

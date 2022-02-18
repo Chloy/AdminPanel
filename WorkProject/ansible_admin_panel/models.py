@@ -237,6 +237,7 @@ class Var(models.Model):
 
     var_type = models.ForeignKey(VarType, on_delete=models.CASCADE)
     value = models.CharField(max_length=250)
+    json_value = models.JSONField(null=True, blank=True)
 
     def __str__(self):
         return "{}={}".format(self.var_type, self.value)
