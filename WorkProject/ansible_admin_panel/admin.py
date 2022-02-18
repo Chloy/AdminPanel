@@ -1,3 +1,4 @@
+from django.contrib.admin import widgets
 from django.contrib import admin
 from .models import *
 
@@ -6,7 +7,43 @@ class AnsibleAdminPanel(admin.AdminSite):
 
 ansible_admin_panel = AnsibleAdminPanel(name='AnsibleAdmin')
 
-ansible_admin_panel.register(Host)
+class HostAdmin(admin.ModelAdmin):
+    fields = [
+        'name', 
+        'org', 
+        'location', 
+        'hv', 
+        '_class',
+        'assignip', 
+        'family', 
+        'roles', 
+        'features',
+        'tv',
+        'kna', 
+        'kes', 
+        'be', 
+        'con', 
+        'availability', 
+        'elk', 
+        'dinet',
+        'wu',
+        'ssh',
+        'local_os',
+        'stage',
+        'vars'
+        ]
+
+    def formfield_for_manytomany(self, db_field, request=None, **kwargs):
+        kwargs['widget']= widgets.FilteredSelectMultiple(
+            db_field.verbose_name,
+            db_field.name in self.filter_vertical
+        )
+
+        return super(admin.ModelAdmin, self).formfield_for_manytomany(
+            db_field, request=request, **kwargs)
+
+
+ansible_admin_panel.register(Host, HostAdmin)
 ansible_admin_panel.register(ORG)
 ansible_admin_panel.register(LOCATION)
 ansible_admin_panel.register(HV)
