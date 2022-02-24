@@ -20,21 +20,19 @@ class VarAdmin(admin.ModelAdmin):
         models.JSONField:{ 'widget': JSONEditor },
     }
 
-    # def formfield_for_dbfield(self, db_field, request, **kwargs):
-    #     field = super().formfield_for_dbfield(db_field, request, **kwargs)
-    #     if isinstance(field, forms.fields.JSONField):
-    #         field.widget = JSONEditor({
-    #             "type": "array",
-    #             "items": {
-    #                 "type": "string"
-    #             }
-    #         })
-    #     return field
+    def formfield_for_manytomany(self, db_field, request=None, **kwargs):
+        kwargs['widget']= widgets.FilteredSelectMultiple(
+            db_field.verbose_name,
+            db_field.name in self.filter_vertical
+        )
+        return super(admin.ModelAdmin, self).formfield_for_manytomany(
+            db_field, request=request, **kwargs)
 
 
 class HostAdmin(admin.ModelAdmin):
     fields = [
-        'name', 
+        'name',
+        'EQ', 
         'org', 
         'location', 
         'hv', 
@@ -55,8 +53,24 @@ class HostAdmin(admin.ModelAdmin):
         'ssh',
         'local_os',
         'stage',
-        'vars'
+        'vars',
         ]
+    readonly_fields = ['EQ']
+
+    def formfield_for_manytomany(self, db_field, request=None, **kwargs):
+        kwargs['widget']= widgets.FilteredSelectMultiple(
+            db_field.verbose_name,
+            db_field.name in self.filter_vertical
+        )
+        return super(admin.ModelAdmin, self).formfield_for_manytomany(
+            db_field, request=request, **kwargs)
+
+class GroupAdmin(admin.ModelAdmin):
+    fields = [
+        'name',
+        'parent',
+        'vars'
+    ]
 
     def formfield_for_manytomany(self, db_field, request=None, **kwargs):
         kwargs['widget']= widgets.FilteredSelectMultiple(
@@ -68,25 +82,25 @@ class HostAdmin(admin.ModelAdmin):
 
 
 ansible_admin_panel.register(Host, HostAdmin)
-ansible_admin_panel.register(ORG)
-ansible_admin_panel.register(LOCATION)
-ansible_admin_panel.register(HV)
-ansible_admin_panel.register(CLASS)
-ansible_admin_panel.register(ASSIGNIP)
-ansible_admin_panel.register(FAMILY)
-ansible_admin_panel.register(ROLE)
-ansible_admin_panel.register(FEATURE)
-ansible_admin_panel.register(TV)
-ansible_admin_panel.register(KNA)
-ansible_admin_panel.register(KES)
-ansible_admin_panel.register(BE)
-ansible_admin_panel.register(CON)
-ansible_admin_panel.register(AVAILABILITY)
-ansible_admin_panel.register(ELK)
-ansible_admin_panel.register(DINET)
-ansible_admin_panel.register(WU)
-ansible_admin_panel.register(SSH)
-ansible_admin_panel.register(LOCAL_OS)
-ansible_admin_panel.register(STAGE)
+ansible_admin_panel.register(ORG, GroupAdmin)
+ansible_admin_panel.register(LOCATION, GroupAdmin)
+ansible_admin_panel.register(HV, GroupAdmin)
+ansible_admin_panel.register(CLASS, GroupAdmin)
+ansible_admin_panel.register(ASSIGNIP, GroupAdmin)
+ansible_admin_panel.register(FAMILY, GroupAdmin)
+ansible_admin_panel.register(ROLE, GroupAdmin)
+ansible_admin_panel.register(FEATURE, GroupAdmin)
+ansible_admin_panel.register(TV, GroupAdmin)
+ansible_admin_panel.register(KNA, GroupAdmin)
+ansible_admin_panel.register(KES, GroupAdmin)
+ansible_admin_panel.register(BE, GroupAdmin)
+ansible_admin_panel.register(CON, GroupAdmin)
+ansible_admin_panel.register(AVAILABILITY, GroupAdmin)
+ansible_admin_panel.register(ELK, GroupAdmin)
+ansible_admin_panel.register(DINET, GroupAdmin)
+ansible_admin_panel.register(WU, GroupAdmin)
+ansible_admin_panel.register(SSH, GroupAdmin)
+ansible_admin_panel.register(LOCAL_OS, GroupAdmin)
+ansible_admin_panel.register(STAGE, GroupAdmin)
 ansible_admin_panel.register(VarType)
 ansible_admin_panel.register(Var, VarAdmin)

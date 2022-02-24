@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 
 JSON_EDITOR_JS = 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.7.2/jsoneditor.js'
 JSON_EDITOR_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.7.2/jsoneditor.css'
-JSON_EDITOR_INIT_JS = "jsoneditor-init.js"
-JSON_EDITOR_ACE_OPTIONS_JS = "my_ace_options.js"
+# JSON_EDITOR_INIT_JS = "jsoneditor-init.js"
+# JSON_EDITOR_ACE_OPTIONS_JS = "my_ace_options.js"
 
 
 # Application definition
@@ -129,6 +129,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+STATIC_ROOT = '/andsible_admin_panel/static/'
 
 STATIC_URL = 'static/'
 
