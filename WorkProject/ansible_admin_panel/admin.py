@@ -1,12 +1,11 @@
 from jsoneditor.forms import JSONEditor
 from django.contrib.admin import widgets
 from django.contrib import admin
-from django.db import models
 from .models import *
+
 
 class AnsibleAdminPanel(admin.AdminSite):
     site_header = 'Ansible Admin Panel'
-
 ansible_admin_panel = AnsibleAdminPanel(name='AnsibleAdmin')
 
 
@@ -55,7 +54,9 @@ class HostAdmin(admin.ModelAdmin):
         'stage',
         'vars',
         ]
+    list_display = ('EQ', 'name')
     readonly_fields = ['EQ']
+    search_fields = ['name', 'EQ']
 
     def formfield_for_manytomany(self, db_field, request=None, **kwargs):
         kwargs['widget']= widgets.FilteredSelectMultiple(
@@ -64,6 +65,7 @@ class HostAdmin(admin.ModelAdmin):
         )
         return super(admin.ModelAdmin, self).formfield_for_manytomany(
             db_field, request=request, **kwargs)
+
 
 class GroupAdmin(admin.ModelAdmin):
     fields = [
