@@ -1,7 +1,9 @@
+from urllib.parse import urlencode
 from jsoneditor.forms import JSONEditor
 from django.contrib.admin import widgets
 from django.contrib import admin
 from .models import *
+from django.urls import reverse
 
 
 class AnsibleAdminPanel(admin.AdminSite):
@@ -29,9 +31,7 @@ class VarAdmin(admin.ModelAdmin):
 
 
 class HostAdmin(admin.ModelAdmin):
-    fields = [
-        'name',
-        'EQ', 
+    groups = [
         'org', 
         'location', 
         'hv', 
@@ -52,11 +52,42 @@ class HostAdmin(admin.ModelAdmin):
         'ssh',
         'local_os',
         'stage',
-        'vars',
-        ]
+    ]
+    fields = [
+        'name',
+        'EQ',
+        *groups,
+        'vars'
+    ]
+    # fieldsets = (
+    #     (None, {
+    #         'fields': [
+    #             'name',
+    #             'EQ', 
+    #             ]
+    #     }),
+    #     ('Advanced', {
+    #         'classes': ('wide', 'extrapretty'),
+    #         'fields': [
+    #             *groups,
+    #             'vars'
+    #         ]
+    #     })
+    # )
     list_display = ('EQ', 'name')
+    list_display_links = ('name',)
     readonly_fields = ['EQ']
-    search_fields = ['name', 'EQ']
+    save_on_top = True
+    list_per_page = 50
+    search_fields = ['name', 'EQ', 'vars__var_type__name', 'vars__value', 'vars__json_value']
+    list_filter = [*groups]
+    ordering = ['-EQ']
+
+
+    def save_model(self, request, obj, form, change):
+        print('#' * 120)
+        super().save_model(request, obj, form, change)
+
 
     def formfield_for_manytomany(self, db_field, request=None, **kwargs):
         kwargs['widget']= widgets.FilteredSelectMultiple(
@@ -73,6 +104,7 @@ class GroupAdmin(admin.ModelAdmin):
         'parent',
         'vars'
     ]
+
 
     def formfield_for_manytomany(self, db_field, request=None, **kwargs):
         kwargs['widget']= widgets.FilteredSelectMultiple(
