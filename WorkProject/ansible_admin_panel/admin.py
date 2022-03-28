@@ -55,6 +55,7 @@ class HostAdmin(admin.ModelAdmin):
     ]
     fields = [
         'name',
+        'FQDN',
         'EQ',
         *groups,
         'vars'
@@ -78,8 +79,8 @@ class HostAdmin(admin.ModelAdmin):
     list_display_links = ('name',)
     readonly_fields = ['EQ']
     save_on_top = True
-    list_per_page = 50
-    search_fields = ['name', 'EQ', 'vars__var_type__name', 'vars__value', 'vars__json_value']
+    list_per_page = 950
+    search_fields = ['name', 'FQDN', 'EQ', 'vars__var_type__name', 'vars__value', 'vars__json_value']
     list_filter = [*groups]
     ordering = ['-EQ']
 
