@@ -9,7 +9,11 @@ class AnsibleAdminPanel(admin.AdminSite):
 ansible_admin_panel = AnsibleAdminPanel(name='AnsibleAdmin')
 
 
-class ManyToMany(admin.ModelAdmin):
+class CommonCustomization(admin.ModelAdmin):
+    save_on_top = True
+    list_per_page = 100
+    search_fields = ['name']
+
     def formfield_for_manytomany(self, db_field, request=None, **kwargs):
         kwargs['widget']= widgets.FilteredSelectMultiple(
             db_field.verbose_name,
@@ -19,7 +23,7 @@ class ManyToMany(admin.ModelAdmin):
             db_field, request=request, **kwargs)
 
 
-class HostAdmin(ManyToMany):
+class HostAdmin(CommonCustomization):
     groups = [
         'org', 
         'location', 
@@ -52,14 +56,12 @@ class HostAdmin(ManyToMany):
     list_display = ('EQ', 'name', 'FQDN')
     list_display_links = ('name',)
     readonly_fields = ['EQ']
-    save_on_top = True
-    list_per_page = 100
     search_fields = ['name', 'FQDN', 'EQ', 'vars__var_type__name', 'vars__value', 'vars__json_value']
     list_filter = [*groups]
     ordering = ['-EQ']
 
 
-class VarAdmin(ManyToMany):
+class VarAdmin(CommonCustomization):
     fields = [
         'var_type',
         'value',
@@ -68,9 +70,14 @@ class VarAdmin(ManyToMany):
     formfield_overrides = {
         models.JSONField:{ 'widget': JSONEditor },
     }
+    search_fields = [
+        'var_type__name',
+        'value',
+        'json_value'
+    ]
 
 
-class GroupAdmin(ManyToMany):
+class GroupAdmin(CommonCustomization):
     fields = [
         'name',
         'parent',
@@ -79,7 +86,6 @@ class GroupAdmin(ManyToMany):
 
 
 mixins = [
-    [Host, HostAdmin],
     [ORG, GroupAdmin],
     [LOCATION, GroupAdmin],
     [HV, GroupAdmin],
@@ -100,7 +106,8 @@ mixins = [
     [SSH, GroupAdmin],
     [LOCAL_OS, GroupAdmin],
     [STAGE, GroupAdmin],
-    [VarType],
+    [Host, HostAdmin],
+    [VarType, CommonCustomization],
     [Var, VarAdmin]
 ]
 

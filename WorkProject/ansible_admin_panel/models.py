@@ -4,6 +4,8 @@ from django.db.models import Max
 
 class GroupCommon(models.Model):
     name = models.CharField(unique=True, max_length=100)
+    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
+    vars = models.ManyToManyField('Var', blank=True)
 
     class Meta():
         abstract = True
@@ -35,161 +37,101 @@ class Var(models.Model):
 
 
 class ORG(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta():
         verbose_name_plural = "ORG"    
 
 
 class LOCATION(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "LOCATION"
     
     
 class HV(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "HV"
 
 
 class CLASS(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "CLASS"
 
 
 class ASSIGNIP(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "ASSIGNIP"
 
  
 class FAMILY(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "FAMILY"
 
     
 class ROLE(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "ROLE"
 
 
 class FEATURE(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "FEATURE"
 
     
 class TV(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "TV"
 
 
 class KNA(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "KNA"
 
     
 class KES(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "KES"
 
 
 class BE(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "BE"
 
  
 class CON(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "CON"
 
     
 class AVAILABILITY(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "AVAILABILITY"
 
     
 class ELK(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "ELK"
 
     
 class DINET(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "DINET"
 
     
 class WU(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "WU"
 
 
 class SSH(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "SSH"
 
  
 class LOCAL_OS(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "LOCAL OS"
 
 
 class STAGE(GroupCommon):
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
     class Meta:
         verbose_name_plural = "STAGE"
 
