@@ -1,4 +1,3 @@
-from email.quoprimime import unquote
 from django.db import models
 from django.db.models import Max
 
@@ -272,7 +271,7 @@ class Host(models.Model):
         verbose_name_plural = "Host"
 
     name = models.CharField(max_length=250)
-    FQDN = models.CharField(unique=True, max_length=250)
+    FQDN = models.CharField(max_length=250)
     org = models.ForeignKey(ORG, on_delete=models.DO_NOTHING, default=ORG.objects.get_or_create(name='UNKNOWN')[0].id)
     location = models.ForeignKey(LOCATION, on_delete=models.DO_NOTHING, default=LOCATION.objects.get_or_create(name='UNKNOWN')[0].id)
     hv = models.ForeignKey(HV, on_delete=models.DO_NOTHING, default=HV.objects.get_or_create(name='UNKNOWN')[0].id)
