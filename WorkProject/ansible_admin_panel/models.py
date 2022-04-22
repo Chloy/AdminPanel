@@ -1,275 +1,200 @@
 from django.db import models
 from django.db.models import Max
 
+
+class GroupCommon(models.Model):
+    name = models.CharField(unique=True, max_length=100)
+
+    class Meta():
+        abstract = True
+    
+    def __str__(self):
+        return self.name
+
+
 class VarType(models.Model):
+    name = models.CharField(unique=True, max_length=250)
 
     class Meta:
         verbose_name_plural = "Var type"
 
-    name = models.CharField(unique=True, max_length=250)
-    
     def __str__(self):
         return self.name
-
+    
+    
 class Var(models.Model):
-
-    class Meta:
-        verbose_name_plural = "Var"
-
     var_type = models.ForeignKey(VarType, on_delete=models.CASCADE)
     value = models.CharField(max_length=250, blank=True, null=True)
     json_value = models.JSONField(null=True, blank=True)
 
+    class Meta:
+        verbose_name_plural = "Var"
+
     def __str__(self):
         return "{}={}".format(self.var_type, self.value)
 
-class ORG(models.Model):
 
-    class Meta:
-        verbose_name_plural = "ORG"
-
-    name = models.CharField(unique=True, max_length=250)
+class ORG(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-    
-    def __str__(self):
-        return self.name
 
-class LOCATION(models.Model):
+    class Meta():
+        verbose_name_plural = "ORG"    
+
+
+class LOCATION(GroupCommon):
+    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
+    vars = models.ManyToManyField(Var, blank=True)
 
     class Meta:
         verbose_name_plural = "LOCATION"
     
-    name = models.CharField(unique=True, max_length=250)
+    
+class HV(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name    
-
-class HV(models.Model):
 
     class Meta:
         verbose_name_plural = "HV"
 
-    name = models.CharField(unique=True, max_length=250)
+
+class CLASS(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class CLASS(models.Model):
 
     class Meta:
         verbose_name_plural = "CLASS"
 
-    name = models.CharField(unique=True, max_length=250)
+
+class ASSIGNIP(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class ASSIGNIP(models.Model):
 
     class Meta:
         verbose_name_plural = "ASSIGNIP"
 
-    name = models.CharField(unique=True, max_length=250)
+ 
+class FAMILY(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class FAMILY(models.Model):
 
     class Meta:
         verbose_name_plural = "FAMILY"
 
-    name = models.CharField(unique=True, max_length=250)
+    
+class ROLE(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class ROLE(models.Model):
 
     class Meta:
         verbose_name_plural = "ROLE"
 
-    name = models.CharField(unique=True, max_length=250)
+
+class FEATURE(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class FEATURE(models.Model):
 
     class Meta:
         verbose_name_plural = "FEATURE"
 
-    name = models.CharField(unique=True, max_length=250)
+    
+class TV(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class TV(models.Model):
 
     class Meta:
         verbose_name_plural = "TV"
 
-    name = models.CharField(unique=True, max_length=250)
+
+class KNA(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class KNA(models.Model):
 
     class Meta:
         verbose_name_plural = "KNA"
 
-    name = models.CharField(unique=True, max_length=250)
+    
+class KES(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class KES(models.Model):
 
     class Meta:
         verbose_name_plural = "KES"
 
-    name = models.CharField(unique=True, max_length=250)
+
+class BE(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class BE(models.Model):
 
     class Meta:
         verbose_name_plural = "BE"
 
-    name = models.CharField(unique=True, max_length=250)
+ 
+class CON(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class CON(models.Model):
 
     class Meta:
         verbose_name_plural = "CON"
 
-    name = models.CharField(unique=True, max_length=250)
+    
+class AVAILABILITY(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class AVAILABILITY(models.Model):
 
     class Meta:
         verbose_name_plural = "AVAILABILITY"
 
-    name = models.CharField(unique=True, max_length=250)
+    
+class ELK(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-    
-    def __str__(self):
-        return self.name
-
-class ELK(models.Model):
 
     class Meta:
         verbose_name_plural = "ELK"
 
-    name = models.CharField(unique=True, max_length=250)
+    
+class DINET(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class DINET(models.Model):
 
     class Meta:
         verbose_name_plural = "DINET"
 
-    name = models.CharField(unique=True, max_length=250)
+    
+class WU(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class WU(models.Model):
 
     class Meta:
         verbose_name_plural = "WU"
 
-    name = models.CharField(unique=True, max_length=250)
+
+class SSH(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class SSH(models.Model):
 
     class Meta:
         verbose_name_plural = "SSH"
 
-    name = models.CharField(unique=True, max_length=250)
+ 
+class LOCAL_OS(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-    
-    def __str__(self):
-        return self.name
-
-class LOCAL_OS(models.Model):
 
     class Meta:
         verbose_name_plural = "LOCAL OS"
 
-    name = models.CharField(unique=True, max_length=250)
+
+class STAGE(GroupCommon):
     parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
     vars = models.ManyToManyField(Var, blank=True)
-
-
-    def __str__(self):
-        return self.name
-
-class STAGE(models.Model):
 
     class Meta:
         verbose_name_plural = "STAGE"
 
-    name = models.CharField(unique=True, max_length=250)
-    parent = models.ForeignKey("self", blank=True, on_delete=models.SET_NULL, null=True)
-    vars = models.ManyToManyField(Var, blank=True)
-
-    def __str__(self):
-        return self.name
-
 
 class Host(models.Model):
-
-    class Meta:
-        verbose_name_plural = "Host"
-
     name = models.CharField(max_length=250)
     FQDN = models.CharField(max_length=250)
     org = models.ForeignKey(ORG, on_delete=models.DO_NOTHING, default=ORG.objects.get_or_create(name='UNKNOWN')[0].id)
@@ -300,6 +225,9 @@ class Host(models.Model):
         # }
     )
     EQ = models.IntegerField(unique=True)
+
+    class Meta:
+        verbose_name_plural = "Host"
 
     def __str__(self):
         return self.name

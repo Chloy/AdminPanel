@@ -2,7 +2,6 @@ from jsoneditor.forms import JSONEditor
 from django.contrib.admin import widgets
 from django.contrib import admin
 from .models import *
-from django.urls import reverse
 
 
 class AnsibleAdminPanel(admin.AdminSite):
@@ -20,7 +19,7 @@ class ManyToMany(admin.ModelAdmin):
             db_field, request=request, **kwargs)
 
 
-class HostAdmin(ManyToMany, admin.ModelAdmin):
+class HostAdmin(ManyToMany):
     groups = [
         'org', 
         'location', 
@@ -50,21 +49,6 @@ class HostAdmin(ManyToMany, admin.ModelAdmin):
         *groups,
         'vars'
     ]
-    # fieldsets = (
-    #     (None, {
-    #         'fields': [
-    #             'name',
-    #             'EQ', 
-    #             ]
-    #     }),
-    #     ('Advanced', {
-    #         'classes': ('wide', 'extrapretty'),
-    #         'fields': [
-    #             *groups,
-    #             'vars'
-    #         ]
-    #     })
-    # )
     list_display = ('EQ', 'name', 'FQDN')
     list_display_links = ('name',)
     readonly_fields = ['EQ']
@@ -75,7 +59,7 @@ class HostAdmin(ManyToMany, admin.ModelAdmin):
     ordering = ['-EQ']
 
 
-class VarAdmin(ManyToMany, admin.ModelAdmin):
+class VarAdmin(ManyToMany):
     fields = [
         'var_type',
         'value',
@@ -86,12 +70,13 @@ class VarAdmin(ManyToMany, admin.ModelAdmin):
     }
 
 
-class GroupAdmin(ManyToMany, admin.ModelAdmin):
+class GroupAdmin(ManyToMany):
     fields = [
         'name',
         'parent',
         'vars'
     ]
+
 
 mixins = [
     [Host, HostAdmin],
