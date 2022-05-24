@@ -20,5 +20,5 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
-    path('ans_admin_panel/', include('ansible_admin_panel.urls'))
+    path('ans/', include('ansible_admin_panel.urls'))
 ]

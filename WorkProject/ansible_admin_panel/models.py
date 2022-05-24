@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Max
+from yamlfield.fields import YAMLField
 
 
 class GroupCommon(models.Model):
@@ -26,8 +27,7 @@ class VarType(models.Model):
     
 class Var(models.Model):
     var_type = models.ForeignKey(VarType, on_delete=models.CASCADE)
-    value = models.CharField(max_length=250, blank=True, null=True)
-    json_value = models.JSONField(null=True, blank=True)
+    value = YAMLField()
 
     class Meta:
         verbose_name_plural = "Var"
@@ -145,8 +145,8 @@ class Host(models.Model):
     _class = models.ForeignKey(CLASS, on_delete=models.DO_NOTHING, default=CLASS.objects.get_or_create(name='UNKNOWN')[0].id)
     assignip = models.ForeignKey(ASSIGNIP, on_delete=models.DO_NOTHING, default=ASSIGNIP.objects.get_or_create(name='UNKNOWN')[0].id)
     family = models.ForeignKey(FAMILY, on_delete=models.DO_NOTHING, default=FAMILY.objects.get_or_create(name='UNKNOWN')[0].id)
-    roles = models.ManyToManyField(ROLE, blank=True)
-    features = models.ManyToManyField(FEATURE, blank=True)
+    roles = models.ManyToManyField(ROLE, blank=False)
+    features = models.ManyToManyField(FEATURE, blank=False)
     tv = models.ForeignKey(TV, on_delete=models.DO_NOTHING, default=TV.objects.get_or_create(name='UNKNOWN')[0].id)
     kna = models.ForeignKey(KNA, on_delete=models.DO_NOTHING, default=KNA.objects.get_or_create(name='UNKNOWN')[0].id)
     kes = models.ForeignKey(KES, on_delete=models.DO_NOTHING, default=KES.objects.get_or_create(name='UNKNOWN')[0].id)
